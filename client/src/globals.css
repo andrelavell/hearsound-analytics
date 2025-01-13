@@ -10,15 +10,17 @@
 
 @layer components {
   .stat-card {
-    @apply bg-gray-light rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-300 p-6;
+    @apply bg-white rounded-lg shadow-sm p-6 flex flex-col justify-between;
+    min-height: 120px;
   }
 
   .stat-label {
-    @apply text-sm font-medium text-navy/60 mb-2;
+    @apply text-gray-600 text-sm font-medium mb-2;
   }
 
   .stat-value {
-    @apply text-3xl font-semibold text-navy;
+    @apply text-2xl font-bold text-navy;
+    line-height: 1.2;
   }
 
   .date-button {

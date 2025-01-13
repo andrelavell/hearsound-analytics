@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, subDays, startOfDay, endOfDay } from 'date-fns/esm';
 import axios from 'axios';
 import './globals.css';
@@ -11,8 +11,25 @@ function App() {
   const [analytics, setAnalytics] = useState({
     totalOrders: 0,
     totalRefunds: 0,
-    avgDaysToRefund: 0
+    avgDaysToRefund: 0,
+    totalRefundAmount: 0,
+    refundRate: 0,
+    avgRefundAmount: 0
   });
+
+  // Get unique products from orders
+  const products = useMemo(() => {
+    const productMap = new Map();
+    orders.forEach(order => {
+      order.products?.forEach(product => {
+        productMap.set(product.sku, {
+          sku: product.sku,
+          title: product.title
+        });
+      });
+    });
+    return Array.from(productMap.values());
+  }, [orders]);
 
   const predefinedRanges = [
     { label: 'Today', getValue: () => {
@@ -49,56 +66,57 @@ function App() {
 
   const calculateAnalytics = () => {
     // Filter orders by date range
-    const ordersInRange = orders.filter(order => {
-      const orderDate = new Date(order.orderDate);
-      return orderDate >= startOfDay(startDate) && orderDate <= endOfDay(endDate);
-    });
-
-    // Filter for full refunds that occurred in the date range
-    const refundsInRange = orders.filter(order => {
-      // Only look at orders that have a full refund
-      if (!order.refundDate || order.refundStatus !== 'Refunded') return false;
+    const filteredOrders = orders.filter(order => {
+      // Only include full refunds, not partial refunds
+      if (order.financial_status !== 'refunded') return false;
+      
+      // Only look at orders that have a refund
+      if (!order.refundDate || order.refundAmount <= 0) return false;
       
       // Convert refund date to Date object
       const refundDate = new Date(order.refundDate);
       
-      // Check if refund date is in range
-      const isInRange = refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
-      
-      console.log('Checking refund:', {
-        orderNumber: order.orderNumber,
-        refundStatus: order.refundStatus,
-        refundDate,
-        startDate: startOfDay(startDate),
-        endDate: endOfDay(endDate),
-        isInRange
-      });
-      
-      return isInRange;
+      // Check if refund date falls within selected range
+      return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
     });
 
-    console.log('Analytics:', {
-      totalOrders: ordersInRange.length,
-      totalRefunds: refundsInRange.length,
-      dateRange: {
-        start: startOfDay(startDate),
-        end: endOfDay(endDate)
-      }
-    });
+    // Calculate total orders in date range (regardless of refund status)
+    const totalOrdersInRange = orders.filter(order => {
+      const orderDate = new Date(order.orderDate);
+      return orderDate >= startOfDay(startDate) && orderDate <= endOfDay(endDate);
+    }).length;
 
-    const validDaysToRefund = refundsInRange
-      .filter(order => typeof order.daysToRefund === 'number')
-      .map(order => order.daysToRefund);
-
-    const avgDays = validDaysToRefund.length > 0
-      ? validDaysToRefund.reduce((acc, curr) => acc + curr, 0) / validDaysToRefund.length
+    // Calculate analytics
+    const totalRefunds = filteredOrders.length;
+    const totalRefundAmount = filteredOrders.reduce((sum, order) => sum + order.refundAmount, 0);
+    const avgDaysToRefund = totalRefunds > 0
+      ? filteredOrders.reduce((sum, order) => {
+          const days = order.daysToRefund;
+          return sum + (typeof days === 'number' ? days : 0);
+        }, 0) / totalRefunds
       : 0;
 
     setAnalytics({
-      totalOrders: ordersInRange.length,
-      totalRefunds: refundsInRange.length,
-      avgDaysToRefund: Math.round(avgDays * 10) / 10
+      totalOrders: totalOrdersInRange,
+      totalRefunds,
+      avgDaysToRefund: Number(avgDaysToRefund.toFixed(1)),
+      totalRefundAmount,
+      refundRate: totalOrdersInRange > 0 ? (totalRefunds / totalOrdersInRange) * 100 : 0,
+      avgRefundAmount: totalRefunds > 0 ? totalRefundAmount / totalRefunds : 0
     });
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
+
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat('en-US').format(number);
   };
 
   const fetchOrders = async () => {
@@ -146,39 +164,59 @@ function App() {
       </nav>
 
       <main className="container mx-auto px-6 py-8">
-        <div className="flex justify-end mb-8 space-x-2">
-          {predefinedRanges.map((range) => (
-            <button
-              key={range.label}
-              onClick={() => {
-                const [newStart, newEnd] = range.getValue();
-                setStartDate(newStart);
-                setEndDate(newEnd);
-                setDateRangeText(range.label);
-              }}
-              className={`date-button ${
-                dateRangeText === range.label ? 'date-button-active' : 'date-button-inactive'
-              }`}
-            >
-              {range.label}
-            </button>
-          ))}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-navy">Refund Analytics</h1>
+          <div className="flex space-x-2">
+            {predefinedRanges.map(range => (
+              <button
+                key={range.label}
+                onClick={() => {
+                  const [newStart, newEnd] = range.getValue();
+                  setStartDate(newStart);
+                  setEndDate(newEnd);
+                  setDateRangeText(range.label);
+                }}
+                className={`date-button ${
+                  dateRangeText === range.label ? 'date-button-active' : 'date-button-inactive'
+                }`}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+          {/* Order Statistics */}
           <div className="stat-card">
-            <div className="stat-label">Total Orders</div>
-            <div className="stat-value">{analytics.totalOrders}</div>
+            <h3 className="stat-title">Total Orders</h3>
+            <p className="stat-value">{analytics.totalOrders}</p>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Total Refunds</div>
-            <div className="stat-value text-coral">{analytics.totalRefunds}</div>
+            <h3 className="stat-title">Total Refunds</h3>
+            <p className="stat-value">{analytics.totalRefunds}</p>
           </div>
 
           <div className="stat-card">
-            <div className="stat-label">Average Days to Refund</div>
-            <div className="stat-value">{analytics.avgDaysToRefund} days</div>
+            <h3 className="stat-title">Average Days to Refund</h3>
+            <p className="stat-value">{analytics.avgDaysToRefund.toFixed(1)} days</p>
+          </div>
+
+          {/* Financial Statistics */}
+          <div className="stat-card">
+            <h3 className="stat-title">Total Refund Amount</h3>
+            <p className="stat-value">${analytics.totalRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3 className="stat-title">Average Refund Amount</h3>
+            <p className="stat-value">${analytics.avgRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3 className="stat-title">Refund Rate</h3>
+            <p className="stat-value">{analytics.refundRate.toFixed(1)}%</p>
           </div>
         </div>
 
@@ -202,8 +240,12 @@ function App() {
               </thead>
               <tbody>
                 {orders
-                  .filter(order => order.refundStatus === 'Refunded' && order.refundDate)
                   .filter(order => {
+                    // Only include full refunds
+                    if (order.financial_status !== 'refunded') return false;
+                    
+                    // Check if refund date is within selected range
+                    if (!order.refundDate) return false;
                     const refundDate = new Date(order.refundDate);
                     return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
                   })

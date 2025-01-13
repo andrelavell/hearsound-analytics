@@ -82,11 +82,16 @@ app.get('/api/orders', async (req, res) => {
       created_at_min: startDateISO,
       created_at_max: endDateISO,
       limit: 250,
-      fields: 'id,order_number,created_at,fulfillments,refunds,financial_status,shipping_address,fulfillment_status'
+      fields: 'id,order_number,created_at,fulfillments,refunds,financial_status,shipping_address,fulfillment_status,total_price,line_items.product_id,line_items.title,line_items.sku,line_items.quantity,line_items.price'
     };
 
     const orders = await fetchAllOrders(params);
     console.log(`Retrieved ${orders.length} orders`);
+
+    // Debug a sample order
+    if (orders.length > 0) {
+      console.log('Sample order data:', JSON.stringify(orders[0], null, 2));
+    }
 
     // Debug refund statuses
     const refundStatuses = orders.map(order => ({
@@ -100,12 +105,36 @@ app.get('/api/orders', async (req, res) => {
       // Get the first fulfillment
       const fulfillment = order.fulfillments && order.fulfillments[0];
       
+      // Calculate refund amount
+      let refundAmount = 0;
+      if (order.refunds && order.refunds.length > 0) {
+        refundAmount = order.refunds.reduce((total, refund) => {
+          if (refund.transactions && refund.transactions.length > 0) {
+            return total + refund.transactions.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+          }
+          return total;
+        }, 0);
+      }
+
+      // Get product details from line items
+      const products = order.line_items ? order.line_items.map(item => ({
+        id: item.product_id,
+        title: item.title,
+        sku: item.sku || 'N/A',
+        quantity: item.quantity,
+        price: parseFloat(item.price)
+      })) : [];
+
       // Debug log for this specific order
       console.log('Processing order:', {
         id: order.id,
         financial_status: order.financial_status,
         refunds: order.refunds ? order.refunds.length : 0,
-        created_at: order.created_at
+        created_at: order.created_at,
+        total_price: parseFloat(order.total_price || 0),
+        refund_amount: refundAmount,
+        has_line_items: order.line_items ? order.line_items.length : 0,
+        products: products.length
       });
 
       // Get delivery date - try different methods
@@ -151,7 +180,10 @@ app.get('/api/orders', async (req, res) => {
         transitStatus: fulfillment ? fulfillment.shipment_status || fulfillment.status || 'unknown' : null,
         refundDate: refundDate,
         daysToRefund: daysToRefund,
-        hasRefunds: order.refunds && order.refunds.length > 0
+        hasRefunds: order.refunds && order.refunds.length > 0,
+        totalPrice: parseFloat(order.total_price || 0),
+        refundAmount: refundAmount,
+        products: products
       };
     });
 
@@ -167,6 +199,7 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
