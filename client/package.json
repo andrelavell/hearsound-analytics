@@ -19,6 +19,10 @@
     "recharts": "^2.15.0",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "tailwindcss": "^3.3.0"
+  },
   "scripts": {
     "start": "PORT=3003 react-scripts start",
     "build": "react-scripts build",
