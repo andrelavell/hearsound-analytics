@@ -25,10 +25,18 @@ function App() {
       const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
       return [yesterday, new Date(yesterday.getTime() + 24 * 60 * 60 * 1000 - 1)];
     }},
-    { label: 'Last 7 days', getValue: () => [subDays(new Date(), 7), new Date()] },
-    { label: 'Last 30 days', getValue: () => [subDays(new Date(), 30), new Date()] },
-    { label: 'Last 90 days', getValue: () => [subDays(new Date(), 90), new Date()] },
-    { label: 'Last 365 days', getValue: () => [subDays(new Date(), 365), new Date()] },
+    { label: 'Last 7 days', getValue: () => {
+      const end = new Date();
+      const start = new Date(end);
+      start.setDate(end.getDate() - 6);
+      start.setHours(0, 0, 0, 0);
+      end.setHours(23, 59, 59, 999);
+      console.log('Last 7 days range:', { start, end });
+      return [start, end];
+    }},
+    { label: 'Last 30 days', getValue: () => [subDays(new Date(), 29), new Date()] },
+    { label: 'Last 90 days', getValue: () => [subDays(new Date(), 89), new Date()] },
+    { label: 'Last 365 days', getValue: () => [subDays(new Date(), 364), new Date()] },
   ];
 
   useEffect(() => {
@@ -46,21 +54,32 @@ function App() {
       return orderDate >= startOfDay(startDate) && orderDate <= endOfDay(endDate);
     });
 
-    // Filter orders that have refunds
-    const refundedOrders = ordersInRange.filter(order => 
-      order.refundStatus === 'Refunded' && order.refundDate
-    );
-
-    // Then filter by refund date
-    const refundsInRange = refundedOrders.filter(order => {
+    // Filter for full refunds that occurred in the date range
+    const refundsInRange = orders.filter(order => {
+      // Only look at orders that have a full refund
+      if (!order.refundDate || order.refundStatus !== 'Refunded') return false;
+      
+      // Convert refund date to Date object
       const refundDate = new Date(order.refundDate);
-      return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
+      
+      // Check if refund date is in range
+      const isInRange = refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
+      
+      console.log('Checking refund:', {
+        orderNumber: order.orderNumber,
+        refundStatus: order.refundStatus,
+        refundDate,
+        startDate: startOfDay(startDate),
+        endDate: endOfDay(endDate),
+        isInRange
+      });
+      
+      return isInRange;
     });
 
     console.log('Analytics:', {
       totalOrders: ordersInRange.length,
-      totalRefundedOrders: refundedOrders.length,
-      refundsInDateRange: refundsInRange.length,
+      totalRefunds: refundsInRange.length,
       dateRange: {
         start: startOfDay(startDate),
         end: endOfDay(endDate)
@@ -171,18 +190,14 @@ function App() {
             <table className="w-full">
               <thead>
                 <tr>
-                  {[
-                    'Order #',
-                    'Order Date',
-                    'Name',
-                    'Tracking Number',
-                    'Delivery Date',
-                    'Refund Date',
-                    'Days to Refund',
-                    'Actions'
-                  ].map(header => (
-                    <th key={header} className="table-header">{header}</th>
-                  ))}
+                  <th className="table-header w-order">Order #</th>
+                  <th className="table-header w-date">Order Date</th>
+                  <th className="table-header w-name">Name</th>
+                  <th className="table-header w-tracking">Tracking Number</th>
+                  <th className="table-header w-delivery">Delivery Date</th>
+                  <th className="table-header w-refund">Refund Date</th>
+                  <th className="table-header w-days">Days to Refund</th>
+                  <th className="table-header w-actions">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -194,12 +209,12 @@ function App() {
                   })
                   .map((order) => (
                     <tr key={order.id} className="table-row">
-                      <td className="table-cell font-medium">{order.orderNumber}</td>
-                      <td className="table-cell">
+                      <td className="table-cell w-order font-medium">{order.orderNumber}</td>
+                      <td className="table-cell w-date">
                         {order.orderDate ? dateFnsFormat(new Date(order.orderDate), 'MMM dd, yyyy') : '-'}
                       </td>
-                      <td className="table-cell">{order.shippingName}</td>
-                      <td className="table-cell">
+                      <td className="table-cell w-name">{order.shippingName}</td>
+                      <td className="table-cell w-tracking">
                         {order.trackingUrl ? (
                           <a href={order.trackingUrl} target="_blank" rel="noopener noreferrer" className="tracking-link">
                             {order.trackingNumber}
@@ -208,24 +223,24 @@ function App() {
                           order.trackingNumber || '-'
                         )}
                       </td>
-                      <td className="table-cell">
+                      <td className="table-cell w-delivery">
                         {order.deliveryDate
                           ? dateFnsFormat(new Date(order.deliveryDate), 'MMM dd, yyyy')
                           : order.transitStatus === 'delivered' ? 'Delivered' : 'Not delivered'}
                       </td>
-                      <td className="table-cell">
+                      <td className="table-cell w-refund">
                         {order.refundDate
                           ? dateFnsFormat(new Date(order.refundDate), 'MMM dd, yyyy')
                           : '-'}
                       </td>
-                      <td className="table-cell">
+                      <td className="table-cell w-days">
                         {typeof order.daysToRefund === 'number' ? 
                           `${order.daysToRefund} days` : 
                           order.daysToRefund === 'before_delivery' ? 
                           'Refunded before delivery' :
                           'Delivery date unknown'}
                       </td>
-                      <td className="table-cell">
+                      <td className="table-cell w-actions">
                         <a 
                           href={`https://${process.env.REACT_APP_SHOP_NAME}.myshopify.com/admin/orders/${order.id}`}
                           target="_blank"

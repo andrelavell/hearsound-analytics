@@ -38,11 +38,44 @@
   }
 
   .table-header {
-    @apply bg-navy text-white px-6 py-4 text-left text-sm font-medium;
+    @apply bg-navy text-white px-4 py-4 text-left text-sm font-medium;
   }
 
   .table-cell {
-    @apply px-6 py-4 text-sm text-navy whitespace-nowrap;
+    @apply px-4 py-4 text-sm text-navy break-words;
+  }
+
+  /* Column-specific widths */
+  .w-order {
+    @apply w-[8%];
+  }
+
+  .w-date {
+    @apply w-[11%];
+  }
+
+  .w-name {
+    @apply w-[14%];
+  }
+
+  .w-tracking {
+    @apply w-[18%];
+  }
+
+  .w-delivery {
+    @apply w-[11%];
+  }
+
+  .w-refund {
+    @apply w-[11%];
+  }
+
+  .w-days {
+    @apply w-[12%];
+  }
+
+  .w-actions {
+    @apply w-[15%];
   }
 
   .table-row {
