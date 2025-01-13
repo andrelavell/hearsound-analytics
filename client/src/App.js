@@ -40,42 +40,43 @@ function App() {
   }, [orders, startDate, endDate]);
 
   const calculateAnalytics = () => {
+    // Filter orders by date range
+    const ordersInRange = orders.filter(order => {
+      const orderDate = new Date(order.orderDate);
+      return orderDate >= startOfDay(startDate) && orderDate <= endOfDay(endDate);
+    });
+
     // Filter orders that have refunds
-    const refundedOrders = orders.filter(order => 
+    const refundedOrders = ordersInRange.filter(order => 
       order.refundStatus === 'Refunded' && order.refundDate
     );
 
-    // Then filter by refund date instead of order date
+    // Then filter by refund date
     const refundsInRange = refundedOrders.filter(order => {
       const refundDate = new Date(order.refundDate);
       return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
     });
 
-    console.log('Refunds analysis:', {
+    console.log('Analytics:', {
+      totalOrders: ordersInRange.length,
       totalRefundedOrders: refundedOrders.length,
       refundsInDateRange: refundsInRange.length,
       dateRange: {
         start: startOfDay(startDate),
         end: endOfDay(endDate)
-      },
-      sampleRefunds: refundsInRange.slice(0, 3).map(o => ({
-        orderNumber: o.orderNumber,
-        orderDate: o.orderDate,
-        refundDate: o.refundDate
-      }))
+      }
     });
 
     const validDaysToRefund = refundsInRange
-      .filter(order => typeof order.daysToRefund === 'number') // Only include numeric days
+      .filter(order => typeof order.daysToRefund === 'number')
       .map(order => order.daysToRefund);
 
-    // Calculate average days to refund
     const avgDays = validDaysToRefund.length > 0
       ? validDaysToRefund.reduce((acc, curr) => acc + curr, 0) / validDaysToRefund.length
       : 0;
 
     setAnalytics({
-      totalOrders: orders.length,
+      totalOrders: ordersInRange.length,
       totalRefunds: refundsInRange.length,
       avgDaysToRefund: Math.round(avgDays * 10) / 10
     });
