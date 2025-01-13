@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray text-navy antialiased;
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-gray-light rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-300 p-6;
+  }
+
+  .stat-label {
+    @apply text-sm font-medium text-navy/60 mb-2;
+  }
+
+  .stat-value {
+    @apply text-3xl font-semibold text-navy;
+  }
+
+  .date-button {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+  }
+
+  .date-button-active {
+    @apply bg-coral text-white shadow-sm;
+  }
+
+  .date-button-inactive {
+    @apply bg-white text-navy hover:bg-navy hover:text-white;
+  }
+
+  .table-container {
+    @apply bg-gray-light rounded-xl shadow-card overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-navy text-white px-6 py-4 text-left text-sm font-medium;
+  }
+
+  .table-cell {
+    @apply px-6 py-4 text-sm text-navy whitespace-nowrap;
+  }
+
+  .table-row {
+    @apply border-b border-gray hover:bg-gray/50 transition-colors duration-200;
+  }
+
+  .tracking-link {
+    @apply text-coral hover:text-coral-dark underline transition-colors duration-200;
+  }
+}

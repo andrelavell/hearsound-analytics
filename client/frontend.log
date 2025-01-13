@@ -1,0 +1,532 @@
+
+> client@0.1.0 start
+> PORT=3003 react-scripts start
+
+(node:17963) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:17963) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled successfully!
+
+You can now view client in the browser.
+
+  Local:            http://localhost:3003
+  On Your Network:  http://172.20.20.20:3003
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+[0;33mOne of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it [1mmay break at any time[0;33m.
+
+babel-preset-react-app is part of the create-react-app project, [1mwhich
+is not maintianed anymore[0;33m. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.[0m
+  
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 42:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 46:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/App.js
+Syntax error: Unexpected token, expected "," (177:20) (177:20)
+ERROR in ./src/App.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/src/App.js: Unexpected token, expected "," (177:20)
+
+  175 |                     'Order Date',
+  176 |                     'Name',x
+> 177 |                     'Tracking Number',
+      |                     ^
+  178 |                     'Delivery Date',
+  179 |                     'Refund Date',
+  180 |                     'Days to Refund'
+    at constructor (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:359:19)
+    at FlowParserMixin.raise (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:3327:19)
+    at FlowParserMixin.unexpected (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:3347:16)
+    at FlowParserMixin.expect (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:3657:12)
+    at FlowParserMixin.parseExprList (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:11793:14)
+    at FlowParserMixin.parseArrayLike (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:11709:26)
+    at FlowParserMixin.parseArrayLike (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:5455:24)
+    at FlowParserMixin.parseExprAtom (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10991:23)
+    at FlowParserMixin.parseExprAtom (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6937:20)
+    at FlowParserMixin.parseExprSubscripts (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10734:23)
+    at FlowParserMixin.parseUpdate (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10719:21)
+    at FlowParserMixin.parseMaybeUnary (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10699:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10553:61)
+    at FlowParserMixin.parseExprOps (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10558:23)
+    at FlowParserMixin.parseMaybeConditional (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10535:23)
+    at FlowParserMixin.parseMaybeAssign (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10498:21)
+    at FlowParserMixin.parseMaybeAssign (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:5773:18)
+    at FlowParserMixin.parseExpressionBase (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10452:23)
+    at /Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10448:39
+    at FlowParserMixin.allowInAnd (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:12069:12)
+    at FlowParserMixin.parseExpression (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10448:17)
+    at FlowParserMixin.jsxParseExpressionContainer (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6805:31)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6884:36)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElementAt (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6871:32)
+    at FlowParserMixin.jsxParseElement (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6922:17)
+    at FlowParserMixin.parseExprAtom (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6932:19)
+    at FlowParserMixin.parseExprSubscripts (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10734:23)
+    at FlowParserMixin.parseUpdate (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10719:21)
+    at FlowParserMixin.parseMaybeUnary (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10699:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10553:61)
+    at FlowParserMixin.parseExprOps (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10558:23)
+    at FlowParserMixin.parseMaybeConditional (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10535:23)
+    at FlowParserMixin.parseMaybeAssign (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10498:21)
+    at /Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:5722:39
+    at FlowParserMixin.tryParse (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:3665:20)
+    at FlowParserMixin.parseMaybeAssign (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:5722:18)
+    at /Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10468:39
+    at FlowParserMixin.allowInAnd (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:12069:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10468:17)
+    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:11328:28)
+    at FlowParserMixin.parseParenAndDistinguishExpression (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:5815:18)
+    at FlowParserMixin.parseExprAtom (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10982:23)
+    at FlowParserMixin.parseExprAtom (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:6937:20)
+    at FlowParserMixin.parseExprSubscripts (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10734:23)
+    at FlowParserMixin.parseUpdate (/Users/deandremoore/CascadeProjects/shopify-fulfillment-tracker/client/node_modules/@babel/parser/lib/index.js:10719:21)
+
+ERROR in [eslint] 
+src/App.js
+  Line 177:20:  Parsing error: Unexpected token, expected "," (177:20)
+
+webpack compiled with 2 errors
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/App.js
+  Line 2:55:  'dateFnsDifferenceInDays' is defined but never used                                                                    no-unused-vars
+  Line 36:6:  React Hook useEffect has a missing dependency: 'fetchOrders'. Either include it or remove the dependency array         react-hooks/exhaustive-deps
+  Line 40:6:  React Hook useEffect has a missing dependency: 'calculateAnalytics'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
