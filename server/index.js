@@ -17,7 +17,8 @@ console.log('Starting server with config:', {
 
 const allowedOrigins = [
   'https://hearsound-analytics.onrender.com',
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'https://hearsound-analytics-api.onrender.com'
 ];
 
 // Debug incoming requests
@@ -32,15 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: function (origin, callback) {
-    console.log('CORS Origin:', origin);
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.log('Origin not allowed:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true, // Allow all origins during testing
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: false,
