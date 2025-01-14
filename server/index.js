@@ -7,11 +7,16 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3002;
 
+const allowedOrigins = [
+  'https://hearsound-analytics.onrender.com',
+  'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: '*',
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  credentials: false,
   optionsSuccessStatus: 200
 }));
 
