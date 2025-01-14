@@ -122,6 +122,51 @@ function App() {
     return new Intl.NumberFormat('en-US').format(number);
   };
 
+  const exportToCSV = () => {
+    // Only export orders that have refunds and are within the selected date range
+    const refundedOrders = orders.filter(order => {
+      if (!order.refundDate) return false;
+      const refundDate = new Date(order.refundDate);
+      return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
+    });
+
+    // Define CSV headers
+    const headers = [
+      'Order Number',
+      'Order Date',
+      'Refund Date',
+      'Days to Refund',
+      'Order Amount',
+      'Refund Amount'
+    ];
+
+    // Convert orders to CSV rows
+    const rows = refundedOrders.map(order => [
+      order.orderNumber,
+      new Date(order.orderDate).toLocaleDateString(),
+      new Date(order.refundDate).toLocaleDateString(),
+      order.daysToRefund,
+      order.orderAmount.toFixed(2),
+      order.refundAmount.toFixed(2)
+    ]);
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    // Create and trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const fetchOrders = async () => {
     try {
       setIsLoading(true);
@@ -233,8 +278,15 @@ function App() {
           </div>
         )}
         <div className="table-container">
-          <div className="px-6 py-4 border-b border-gray">
+          <div className="px-6 py-4 border-b border-gray flex justify-between items-center">
             <h2 className="text-lg font-semibold text-navy">Refunds</h2>
+            <button
+              onClick={exportToCSV}
+              disabled={isLoading}
+              className="px-4 py-2 bg-navy text-white rounded hover:bg-navy-dark disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Export to CSV
+            </button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
