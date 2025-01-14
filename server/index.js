@@ -8,10 +8,16 @@ const app = express();
 const port = process.env.PORT || 3002;
 
 app.use(cors({
-  origin: ['https://hearsound-analytics.onrender.com', 'http://localhost:3000'],
-  methods: ['GET', 'POST'],
-  credentials: true
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
+
+// Handle OPTIONS preflight requests
+app.options('*', cors());
+
 app.use(express.json());
 
 // Serve static files from the React app in production
@@ -201,12 +207,19 @@ app.get('/api/orders', async (req, res) => {
     res.json(ordersWithFulfillment);
 
   } catch (error) {
-    console.error('Error in /api/orders:', {
-      message: error.message,
-      stack: error.stack
-    });
+    console.error('Error processing orders:', error);
     res.status(500).json({ error: error.message });
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({
+    error: err.message,
+    path: req.path,
+    method: req.method
+  });
 });
 
 // Start the server
