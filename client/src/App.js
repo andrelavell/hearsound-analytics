@@ -1,9 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, subDays, startOfDay, endOfDay } from 'date-fns/esm';
 import axios from 'axios';
+import { ExportToCsv } from 'export-to-csv';
 import './globals.css';
 
 const API_URL = 'https://hearsound-analytics-api.onrender.com';
+
+const csvOptions = {
+  fieldSeparator: ',',
+  quoteStrings: '"',
+  decimalSeparator: '.',
+  showLabels: true,
+  useBom: true,
+  useKeysAsHeaders: false,
+  headers: ['Order Number', 'Order Date', 'Refund Date', 'Days to Refund']
+};
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -131,38 +142,22 @@ function App() {
         return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
       });
 
-      // Define CSV headers
-      const headers = [
-        'Order Number',
-        'Order Date',
-        'Refund Date',
-        'Days to Refund'
-      ];
+      // Format the data for CSV
+      const csvData = refundedOrders.map(order => ({
+        'Order Number': order.orderNumber || '',
+        'Order Date': order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '',
+        'Refund Date': order.refundDate ? new Date(order.refundDate).toLocaleDateString() : '',
+        'Days to Refund': order.daysToRefund || '0'
+      }));
 
-      // Convert orders to CSV rows
-      const rows = refundedOrders.map(order => [
-        order.orderNumber || '',
-        order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '',
-        order.refundDate ? new Date(order.refundDate).toLocaleDateString() : '',
-        order.daysToRefund || '0'
-      ]);
+      // Configure the exporter with the current date range in filename
+      const csvExporter = new ExportToCsv({
+        ...csvOptions,
+        filename: `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}`
+      });
 
-      // Combine headers and rows
-      const csvContent = [
-        headers.join(','),
-        ...rows.map(row => row.join(','))
-      ].join('\n');
-
-      // Create and trigger download
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url); // Clean up the URL object
+      // Export the data
+      csvExporter.generateCsv(csvData);
     } catch (error) {
       console.error('Error exporting to CSV:', error);
     }
