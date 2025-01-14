@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, subDays, startOfDay, endOfDay } from 'date-fns/esm';
 import axios from 'axios';
-import { ExportToCsv } from 'export-to-csv';
 import './globals.css';
 
 const API_URL = 'https://hearsound-analytics-api.onrender.com';
@@ -133,8 +132,10 @@ function App() {
     return new Intl.NumberFormat('en-US').format(number);
   };
 
-  const exportToCSV = () => {
+  const exportToCSV = async () => {
     try {
+      const { ExportToCsv } = await import('export-to-csv');
+
       // Only export orders that have refunds and are within the selected date range
       const refundedOrders = orders.filter(order => {
         if (!order.refundDate) return false;
