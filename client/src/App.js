@@ -123,48 +123,49 @@ function App() {
   };
 
   const exportToCSV = () => {
-    // Only export orders that have refunds and are within the selected date range
-    const refundedOrders = orders.filter(order => {
-      if (!order.refundDate) return false;
-      const refundDate = new Date(order.refundDate);
-      return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
-    });
+    try {
+      // Only export orders that have refunds and are within the selected date range
+      const refundedOrders = orders.filter(order => {
+        if (!order.refundDate) return false;
+        const refundDate = new Date(order.refundDate);
+        return refundDate >= startOfDay(startDate) && refundDate <= endOfDay(endDate);
+      });
 
-    // Define CSV headers
-    const headers = [
-      'Order Number',
-      'Order Date',
-      'Refund Date',
-      'Days to Refund',
-      'Order Amount',
-      'Refund Amount'
-    ];
+      // Define CSV headers
+      const headers = [
+        'Order Number',
+        'Order Date',
+        'Refund Date',
+        'Days to Refund'
+      ];
 
-    // Convert orders to CSV rows
-    const rows = refundedOrders.map(order => [
-      order.orderNumber,
-      new Date(order.orderDate).toLocaleDateString(),
-      new Date(order.refundDate).toLocaleDateString(),
-      order.daysToRefund,
-      order.orderAmount.toFixed(2),
-      order.refundAmount.toFixed(2)
-    ]);
+      // Convert orders to CSV rows
+      const rows = refundedOrders.map(order => [
+        order.orderNumber || '',
+        order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '',
+        order.refundDate ? new Date(order.refundDate).toLocaleDateString() : '',
+        order.daysToRefund || '0'
+      ]);
 
-    // Combine headers and rows
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n');
+      // Combine headers and rows
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+      ].join('\n');
 
-    // Create and trigger download
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Create and trigger download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url); // Clean up the URL object
+    } catch (error) {
+      console.error('Error exporting to CSV:', error);
+    }
   };
 
   const fetchOrders = async () => {
