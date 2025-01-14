@@ -136,7 +136,7 @@ function App() {
       
       console.log('Fetching orders:', { formattedStartDate, formattedEndDate });
       
-      const response = await axios.get(`${API_URL}/orders`, {
+      const response = await axios.get(`${API_URL}/api/orders`, {
         params: {
           startDate: formattedStartDate,
           endDate: formattedEndDate
