@@ -84,6 +84,9 @@ async function fetchAllOrders(params) {
 }
 
 app.get('/api/orders', async (req, res) => {
+  console.log('----- /api/orders endpoint hit ------');
+  console.log('Query params:', req.query);
+  
   try {
     const { startDate, endDate } = req.query;
     
@@ -229,7 +232,9 @@ app.use((err, req, res, next) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
+  console.log('Environment:', process.env.NODE_ENV);
+  console.log('Current directory:', __dirname);
 });
 
 // Handle React routing, return all requests to React app
