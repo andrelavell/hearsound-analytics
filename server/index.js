@@ -7,6 +7,14 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3002;
 
+// Log startup information
+console.log('Starting server with config:', {
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: port,
+  SHOP_NAME: process.env.SHOP_NAME,
+  currentDir: __dirname
+});
+
 const allowedOrigins = [
   'https://hearsound-analytics.onrender.com',
   'http://localhost:3000'

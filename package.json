@@ -7,8 +7,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/index.js",
     "client": "cd client && npm start",
-    "build": "cd client && npm install && npm run build",
-    "heroku-postbuild": "npm run build"
+    "build": "npm install",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
