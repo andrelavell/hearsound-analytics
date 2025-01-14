@@ -52,6 +52,16 @@ app.use(express.json());
 // Handle OPTIONS preflight requests
 app.options('*', cors());
 
+// Root route for basic health check
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV,
+    port: port
+  });
+});
+
 // Test route
 app.get('/api/test', (req, res) => {
   console.log('Test endpoint hit');
@@ -269,8 +279,25 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   console.log('Environment:', process.env.NODE_ENV);
   console.log('Current directory:', __dirname);
+}).on('error', (err) => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
 });
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+  process.exit(1);
+});
+
+// Export app for testing
+module.exports = { app, server };
