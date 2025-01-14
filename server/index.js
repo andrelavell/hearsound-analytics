@@ -4,6 +4,20 @@ const cors = require('cors');
 const Shopify = require('shopify-api-node');
 const path = require('path');
 
+// Add simple in-memory cache
+const cache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+// Clear old cache entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of cache.entries()) {
+    if (now - value.timestamp > CACHE_TTL) {
+      cache.delete(key);
+    }
+  }
+}, CACHE_TTL);
+
 const app = express();
 const port = process.env.PORT || 3002;
 
@@ -91,6 +105,14 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Function to fetch all orders using cursor-based pagination
 async function fetchAllOrders(params) {
+  // Check cache first
+  const cacheKey = JSON.stringify(params);
+  const cachedResult = cache.get(cacheKey);
+  if (cachedResult && Date.now() - cachedResult.timestamp < CACHE_TTL) {
+    console.log('Returning cached orders');
+    return cachedResult.data;
+  }
+
   const allOrders = [];
   let hasNextPage = true;
   let currentPage = 1;
@@ -104,13 +126,20 @@ async function fetchAllOrders(params) {
     if (orders.nextPageParameters) {
       params = orders.nextPageParameters;
       currentPage++;
-      await sleep(500); // Small delay to avoid rate limits
+      await sleep(100); // Reduced delay to 100ms
     } else {
       hasNextPage = false;
     }
   }
 
   console.log(`Finished fetching all orders. Total: ${allOrders.length}`);
+  
+  // Store in cache
+  cache.set(cacheKey, {
+    data: allOrders,
+    timestamp: Date.now()
+  });
+  
   return allOrders;
 }
 
