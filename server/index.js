@@ -25,11 +25,6 @@ app.options('*', cors());
 
 app.use(express.json());
 
-// Serve static files from the React app in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
-
 // Validate environment variables
 console.log('Environment check:', {
   SHOP_NAME: process.env.SHOP_NAME,
@@ -220,6 +215,16 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
+}
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Global error handler:', err);
@@ -236,10 +241,3 @@ app.listen(port, () => {
   console.log('Environment:', process.env.NODE_ENV);
   console.log('Current directory:', __dirname);
 });
-
-// Handle React routing, return all requests to React app
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-}
