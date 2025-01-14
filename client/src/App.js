@@ -3,7 +3,7 @@ import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, s
 import axios from 'axios';
 import './globals.css';
 
-const API_URL = 'https://new-backend-service.com/api';
+const API_URL = 'https://hearsound-analytics-api.onrender.com';
 
 function App() {
   const [orders, setOrders] = useState([]);
