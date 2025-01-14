@@ -3,7 +3,7 @@ import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, s
 import axios from 'axios';
 import './globals.css';
 
-const API_URL = 'https://hearsound-analytics-api.onrender.com';
+const API_URL = 'https://new-backend-service.com/api';
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -136,7 +136,7 @@ function App() {
       
       console.log('Fetching orders:', { formattedStartDate, formattedEndDate });
       
-      const response = await axios.get(`${API_URL}/api/orders`, {
+      const response = await axios.get(`${API_URL}/orders`, {
         params: {
           startDate: formattedStartDate,
           endDate: formattedEndDate
