@@ -10,6 +10,7 @@ function App() {
   const [startDate, setStartDate] = useState(subDays(new Date(), 30));
   const [endDate, setEndDate] = useState(new Date());
   const [dateRangeText, setDateRangeText] = useState('Last 30 days');
+  const [isLoading, setIsLoading] = useState(false);
   const [analytics, setAnalytics] = useState({
     totalOrders: 0,
     totalRefunds: 0,
@@ -123,12 +124,13 @@ function App() {
 
   const fetchOrders = async () => {
     try {
+      setIsLoading(true);
       // For orders, we'll fetch a wider date range to catch old orders that might have been refunded recently
-      const start = new Date(startDate);
+      const start = startOfDay(startDate);
+      const end = new Date(endDate);
       start.setFullYear(start.getFullYear() - 1); // Get orders from up to 1 year before the start date
       start.setHours(0, 0, 0, 0);
       
-      const end = new Date(endDate);
       end.setHours(23, 59, 59, 999);
       
       const formattedStartDate = dateFnsFormat(start, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
@@ -146,6 +148,8 @@ function App() {
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -181,6 +185,7 @@ function App() {
                 className={`date-button ${
                   dateRangeText === range.label ? 'date-button-active' : 'date-button-inactive'
                 }`}
+                disabled={isLoading}
               >
                 {range.label}
               </button>
@@ -188,40 +193,45 @@ function App() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-          {/* Order Statistics */}
-          <div className="stat-card">
-            <h3 className="stat-title">Total Orders</h3>
-            <p className="stat-value">{analytics.totalOrders}</p>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-navy"></div>
           </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+            {/* Order Statistics */}
+            <div className="stat-card">
+              <h3 className="stat-title">Total Orders</h3>
+              <p className="stat-value">{analytics.totalOrders}</p>
+            </div>
 
-          <div className="stat-card">
-            <h3 className="stat-title">Total Refunds</h3>
-            <p className="stat-value">{analytics.totalRefunds}</p>
+            <div className="stat-card">
+              <h3 className="stat-title">Total Refunds</h3>
+              <p className="stat-value">{analytics.totalRefunds}</p>
+            </div>
+
+            <div className="stat-card">
+              <h3 className="stat-title">Average Days to Refund</h3>
+              <p className="stat-value">{analytics.avgDaysToRefund.toFixed(1)} days</p>
+            </div>
+
+            {/* Financial Statistics */}
+            <div className="stat-card">
+              <h3 className="stat-title">Total Refund Amount</h3>
+              <p className="stat-value">${analytics.totalRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            </div>
+
+            <div className="stat-card">
+              <h3 className="stat-title">Average Refund Amount</h3>
+              <p className="stat-value">${analytics.avgRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            </div>
+
+            <div className="stat-card">
+              <h3 className="stat-title">Refund Rate</h3>
+              <p className="stat-value">{analytics.refundRate.toFixed(1)}%</p>
+            </div>
           </div>
-
-          <div className="stat-card">
-            <h3 className="stat-title">Average Days to Refund</h3>
-            <p className="stat-value">{analytics.avgDaysToRefund.toFixed(1)} days</p>
-          </div>
-
-          {/* Financial Statistics */}
-          <div className="stat-card">
-            <h3 className="stat-title">Total Refund Amount</h3>
-            <p className="stat-value">${analytics.totalRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-          </div>
-
-          <div className="stat-card">
-            <h3 className="stat-title">Average Refund Amount</h3>
-            <p className="stat-value">${analytics.avgRefundAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-          </div>
-
-          <div className="stat-card">
-            <h3 className="stat-title">Refund Rate</h3>
-            <p className="stat-value">{analytics.refundRate.toFixed(1)}%</p>
-          </div>
-        </div>
-
+        )}
         <div className="table-container">
           <div className="px-6 py-4 border-b border-gray">
             <h2 className="text-lg font-semibold text-navy">Refunds</h2>
