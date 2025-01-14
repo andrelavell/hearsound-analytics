@@ -296,7 +296,7 @@ function App() {
                       </td>
                       <td className="table-cell w-actions">
                         <a 
-                          href={`https://${process.env.REACT_APP_SHOP_NAME}.myshopify.com/admin/orders/${order.id}`}
+                          href={`https://dc162a-d0.myshopify.com/admin/orders/${order.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center px-3 py-1.5 bg-gray border border-gray-dark text-navy text-sm font-medium rounded-md hover:bg-gray-dark hover:text-white transition-colors duration-200"
