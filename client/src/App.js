@@ -1,19 +1,35 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, subDays, startOfDay, endOfDay } from 'date-fns/esm';
 import axios from 'axios';
+import Papa from 'papaparse';
 import './globals.css';
 
 const API_URL = 'https://hearsound-analytics-api.onrender.com';
 
-const csvOptions = {
-  fieldSeparator: ',',
-  quoteStrings: '"',
-  decimalSeparator: '.',
-  showLabels: true,
-  useBom: true,
-  useKeysAsHeaders: false,
-  headers: ['Order Number', 'Order Date', 'Refund Date', 'Days to Refund']
-};
+const predefinedRanges = [
+  { label: 'Today', getValue: () => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return [today, new Date(today.getTime() + 24 * 60 * 60 * 1000 - 1)];
+  }},
+  { label: 'Yesterday', getValue: () => {
+    const now = new Date();
+    const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    return [yesterday, new Date(yesterday.getTime() + 24 * 60 * 60 * 1000 - 1)];
+  }},
+  { label: 'Last 7 days', getValue: () => {
+    const end = new Date();
+    const start = new Date(end);
+    start.setDate(end.getDate() - 6);
+    start.setHours(0, 0, 0, 0);
+    end.setHours(23, 59, 59, 999);
+    console.log('Last 7 days range:', { start, end });
+    return [start, end];
+  }},
+  { label: 'Last 30 days', getValue: () => [subDays(new Date(), 29), new Date()] },
+  { label: 'Last 90 days', getValue: () => [subDays(new Date(), 89), new Date()] },
+  { label: 'Last 365 days', getValue: () => [subDays(new Date(), 364), new Date()] },
+];
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -43,31 +59,6 @@ function App() {
     });
     return Array.from(productMap.values());
   }, [orders]);
-
-  const predefinedRanges = [
-    { label: 'Today', getValue: () => {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      return [today, new Date(today.getTime() + 24 * 60 * 60 * 1000 - 1)];
-    }},
-    { label: 'Yesterday', getValue: () => {
-      const now = new Date();
-      const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
-      return [yesterday, new Date(yesterday.getTime() + 24 * 60 * 60 * 1000 - 1)];
-    }},
-    { label: 'Last 7 days', getValue: () => {
-      const end = new Date();
-      const start = new Date(end);
-      start.setDate(end.getDate() - 6);
-      start.setHours(0, 0, 0, 0);
-      end.setHours(23, 59, 59, 999);
-      console.log('Last 7 days range:', { start, end });
-      return [start, end];
-    }},
-    { label: 'Last 30 days', getValue: () => [subDays(new Date(), 29), new Date()] },
-    { label: 'Last 90 days', getValue: () => [subDays(new Date(), 89), new Date()] },
-    { label: 'Last 365 days', getValue: () => [subDays(new Date(), 364), new Date()] },
-  ];
 
   useEffect(() => {
     fetchOrders();
@@ -134,8 +125,6 @@ function App() {
 
   const exportToCSV = async () => {
     try {
-      const { ExportToCsv } = await import('export-to-csv');
-
       // Only export orders that have refunds and are within the selected date range
       const refundedOrders = orders.filter(order => {
         if (!order.refundDate) return false;
@@ -151,12 +140,13 @@ function App() {
         'Days to Refund': order.daysToRefund || '0'
       }));
 
-      const csvExporter = new ExportToCsv({
-        ...csvOptions,
-        filename: `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}`
-      });
-      
-      csvExporter.generateCsv(csvData);
+      const csv = Papa.unparse(csvData);
+      const csvBlob = new Blob([csv], { type: 'text/csv' });
+      const csvUrl = URL.createObjectURL(csvBlob);
+      const csvLink = document.createElement('a');
+      csvLink.href = csvUrl;
+      csvLink.download = `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`;
+      csvLink.click();
 
     } catch (error) {
       console.error('Error exporting to CSV:', error);
