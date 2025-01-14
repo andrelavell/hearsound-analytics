@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { format as dateFnsFormat, differenceInDays as dateFnsDifferenceInDays, subDays, startOfDay, endOfDay } from 'date-fns/esm';
 import axios from 'axios';
-import { CsvBuilder } from 'export-to-csv';
+import { ExportToCsv } from 'export-to-csv';
 import './globals.css';
 
 const API_URL = 'https://hearsound-analytics-api.onrender.com';
@@ -150,11 +150,12 @@ function App() {
         'Days to Refund': order.daysToRefund || '0'
       }));
 
-      // Create CSV builder with options
-      const csvBuilder = new CsvBuilder(`refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}.csv`)
-        .setColumns(csvOptions.headers)
-        .addRows(csvData)
-        .exportFile();
+      const csvExporter = new ExportToCsv({
+        ...csvOptions,
+        filename: `refunds-${dateRangeText.toLowerCase().replace(/\s+/g, '-')}`
+      });
+      
+      csvExporter.generateCsv(csvData);
 
     } catch (error) {
       console.error('Error exporting to CSV:', error);
