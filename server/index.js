@@ -20,18 +20,43 @@ const allowedOrigins = [
   'http://localhost:3000'
 ];
 
+// Debug incoming requests
+app.use((req, res, next) => {
+  console.log('Incoming request:', {
+    method: req.method,
+    path: req.path,
+    origin: req.headers.origin,
+    host: req.headers.host
+  });
+  next();
+});
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    console.log('CORS Origin:', origin);
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Origin not allowed:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: false,
   optionsSuccessStatus: 200
 }));
 
+app.use(express.json());
+
 // Handle OPTIONS preflight requests
 app.options('*', cors());
 
-app.use(express.json());
+// Test route
+app.get('/api/test', (req, res) => {
+  console.log('Test endpoint hit');
+  res.json({ message: 'API is working' });
+});
 
 // Validate environment variables
 console.log('Environment check:', {
