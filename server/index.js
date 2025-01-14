@@ -7,7 +7,11 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3002;
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://hearsound-analytics.onrender.com', 'http://localhost:3000'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static files from the React app in production
